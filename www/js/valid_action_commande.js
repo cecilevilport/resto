@@ -1,11 +1,20 @@
 'use strict';
+function affDetails(reponse){
+		reponse=JSON.parse(reponse);
+		console.log(reponse);
+		$('#product_details').empty();
+		$('#product_details').append('<p><img src="www/images/meals/'+reponse.Photo+'"></p>');
+		$('#product_details').append('<p><strong>'+reponse.Description+'</strong></p>');
+		$('#product_details').append('<p><strong>'+reponse.SalePrice+' €</strong></p>');
+}
 
-$(document).ready(function(){
-	$('#valide_commande').click(function(){
-		$('#confirmation_commande').fadeIn(150, function(){
-			$('#confirmation_commande').html("<p>Votre commande a bien été prise en compte</p>");
-			$('#confirmation_commande').fadeOut(3000);
-			setTimeout(function(){ document.getElementById('form_valid_panier').submit();}, 3000);
-		});
-	});
+function loadDetails(){
+console.log($('#products').val());
+	$.post("php/affDetails.php","id="+$('#products').val(),affDetails);
+}
+
+$(function(){
+
+	$('#products').on("change",loadDetails);
+
 });

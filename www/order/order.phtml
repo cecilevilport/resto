@@ -1,29 +1,18 @@
 <div id="confirmation_commande" class="affichage_commande"></div>
 <h2><i class="fas fa-shopping-cart"></i> Passer une commande</h2>
 
-<form method="POST" action="panier.php">
+<form method="POST" action="">
   <fieldset id="fieldest_commander" class="authentification">
     <legend>Ajouter un article</legend>
     <table>
       <tr>
         <td class="column1_product_details"><label>Nom: </label></td>
         <td class="column2_product_details">
-          <select name="products" onchange="showUser(this.value)">
-          <?php
-          $pdo = new PDO('mysql:host=localhost;dbname=restaurant', 'root', '');
-          $pdo->exec('SET NAMES UTF8');
-          $query = $pdo->prepare("SELECT Id, `Name`, Description, QuantityInStock, SalePrice FROM `Meal`");
-          $query->execute();
-
-          $details_produit = $query->fetchAll(PDO::FETCH_ASSOC);
-
-          foreach($details_produit as $produit)
-          {
-            ?>
-
-              <option value="<?=$produit['Id']?>"><?=$produit['Name']?></option>
-          <?php
-          }?>
+          <select name="products" id="products">
+              <option value="0">Choisissez...</option>
+            <?php foreach($meals as $meal): ?>
+              <option value="<?=$meal['Id']?>"><?=$meal['Name']?></option>
+            <?php endforeach; ?>
           </select>
         </td>
       </tr>
@@ -37,7 +26,7 @@
       </tr>
       <tr>
         <td></td>
-        <td><input type="submit" name="ajouter" value="Ajouter" class="button"> </td>
+        <td><input type="button" name="ajouter" value="Ajouter" class="button"> </td>
       </tr>
     </table>
 
