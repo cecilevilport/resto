@@ -42,7 +42,7 @@ $url='/3wa/php/resto-bases'; ?>
             <?php if(is_connect()==true): ?>
                 <li>
                     <a class="button button-primary" href="<?= $url ?>/index.php?action=reserver">Réserver</a>
-                    <a class="button button-primary" href="">Commander</a>
+                    <a class="button button-primary" href="<?= $url ?>/index.php?action=commander">Commander</a>
                 </li>
                 <li class="layout-right">
                     <p class="welcome">Bonjour <strong><?= $_SESSION['user']['Prenom'] ?> <?= $_SESSION['user']['Nom'] ?></strong> !</p>

@@ -1,0 +1,105 @@
+<div id="confirmation_commande" class="affichage_commande"></div>
+<h2><i class="fas fa-shopping-cart"></i> Passer une commande</h2>
+
+<form method="POST" action="panier.php">
+  <fieldset id="fieldest_commander" class="authentification">
+    <legend>Ajouter un article</legend>
+    <table>
+      <tr>
+        <td class="column1_product_details"><label>Nom: </label></td>
+        <td class="column2_product_details">
+          <select name="products" onchange="showUser(this.value)">
+          <?php
+          $pdo = new PDO('mysql:host=localhost;dbname=restaurant', 'root', '');
+          $pdo->exec('SET NAMES UTF8');
+          $query = $pdo->prepare("SELECT Id, `Name`, Description, QuantityInStock, SalePrice FROM `Meal`");
+          $query->execute();
+
+          $details_produit = $query->fetchAll(PDO::FETCH_ASSOC);
+
+          foreach($details_produit as $produit)
+          {
+            ?>
+
+              <option value="<?=$produit['Id']?>"><?=$produit['Name']?></option>
+          <?php
+          }?>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><div id="product_details"></div></td>
+      </tr>
+      <tr>
+        <td><label>Quantité: </label></td>
+        <td><input type="number" name="quantity" min="0" max="30"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="submit" name="ajouter" value="Ajouter" class="button"> </td>
+      </tr>
+    </table>
+
+  </fieldset>
+</form>
+
+<form method="POST" action="valid_commande.php" id="form_valid_panier">
+
+  <fieldset class="authentification">
+    <legend>Récapitulatif de cotre commande</legend>
+
+
+    <table id="panier">
+
+      <?php
+
+      if(!empty($_SESSION['panier']))
+      {
+        ?>
+        <th>Quantité</th>
+        <th>Produit</th>
+        <th>Prix Unitaire</th>
+        <th>Prix Total</th>
+
+        <?php
+        $nbArticles=count($_SESSION['panier']['Id_product']);
+
+        for($i=0; $i<$nbArticles; $i++)
+        {
+          ?>
+          <tr>
+            <td><?= htmlspecialchars($_SESSION['panier']['qte'][$i])?></td>
+            <td><?=$_SESSION['panier']['nom'][$i]?></td>
+            <td><?=$_SESSION['panier']['prix'][$i]?> €</td>
+            <td><?=$_SESSION['panier']['prixTT'][$i]?> €</td>
+            <td><a href="supprimer_article.php?supp=<?=$_SESSION['panier']['Id_product'][$i]?>"><i class="fas fa-trash-alt"></i></a></td>
+          </tr>
+
+          <?php
+        } ?>
+
+        <tr>
+          <td></td>
+          <td></td>
+          <td><strong>Panier : </strong></td>
+          <td><?=array_sum($_SESSION['panier']['prixTT'])?> € </td>
+          <?php $_SESSION['Prix_panier'] = array_sum($_SESSION['panier']['prixTT']);?>
+        </tr><?php
+
+      }
+
+      else {
+        echo "<tr>"."<td>Votre panier est vide pour le moment</td>"."</tr>";
+      }
+
+      ?>
+
+
+
+    </table>
+  </fieldset>
+
+</form>
+<button class="grey_button" id="valide_commande">Valider la commande</button>
+<a href="supprimer_panier.php" class="cancel">Annuler</a>

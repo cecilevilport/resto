@@ -3,6 +3,7 @@
 require('controllers/meal.php');
 require('controllers/user.php');
 require('controllers/booking.php');
+require('controllers/order.php');
 
 if(isset($_GET['action']))
 {
@@ -24,6 +25,9 @@ if(isset($_GET['action']))
 			break;
 		case 'validResa':
 			validerResa();
+			break;
+		case 'commander':
+			order();
 			break;
 	}
 }
