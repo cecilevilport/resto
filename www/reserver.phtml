@@ -1,0 +1,75 @@
+
+    <?php if(isset($resa) && $resa=='ok'):   ?>
+      <div id="confirm_action" class="affichage_validation">Votre réservation a bien été prise en compte</div>
+      <?php endif;
+$date=date('Y-m-d');
+echo $date;
+       ?>
+
+  <h2><i class="fas fa-utensils"></i> Réservation d'une table</h2>
+  <form method="POST" action="<?= $url ?>/index.php?action=validResa" id="form_resa">
+    <fieldset class="authentification">
+      <legend>Informations</legend>
+
+    <table>
+      <tr>
+        <td><label>Date de réservation: </label></td>
+        <td><select name="booking_day" id="booking_day">
+        <?php
+        for($i=1; $i<=31; $i++)
+        {
+          ?>
+          <option value"=<?=$i?>" <?php if(date('d')==$i) echo 'selected' ?>><?=$i?></option><?php
+        }?>
+        </select>
+        <select name="booking_month" id="booking_month">
+          <option value="01" <?php if(date('m')=="01") echo 'selected' ?>>Janvier</option>
+          <option value="02" <?php if(date('m')=="02") echo 'selected' ?>>Février</option>
+          <option value="03" <?php if(date('m')=="03") echo 'selected' ?>>Mars</option>
+          <option value="04" <?php if(date('m')=="04") echo 'selected' ?>>Avril</option>
+          <option value="05" <?php if(date('m')=="05") echo 'selected' ?>>Mai</option>
+          <option value="06" <?php if(date('m')=="06") echo 'selected' ?>>Juin</option>
+          <option value="07" <?php if(date('m')=="07") echo 'selected' ?>>Juillet</option>
+          <option value="08" <?php if(date('m')=="08") echo 'selected' ?>>Août</option>
+          <option value="09" <?php if(date('m')=="09") echo 'selected' ?>>Septembre</option>
+          <option value="10" <?php if(date('m')=="10") echo 'selected' ?>>Octobre</option>
+          <option value="11" <?php if(date('m')=="11") echo 'selected' ?>>Novembre</option>
+          <option value="12" <?php if(date('m')=="12") echo 'selected' ?>>Décembre</option>
+        </select>
+        <select name="booking_year" id="booking_year">
+          <option value="2018" <?php if(date('Y')=="2018") echo 'selected' ?>>2018</option>
+          <option value="2019" <?php if(date('Y')=="2019") echo 'selected' ?>>2019</option>
+          <option value="2020" <?php if(date('Y')=="2020") echo 'selected' ?>>2020</option>
+        </select> à:
+        <select name="booking_hour" id="booking_hour">
+          <?php
+          for($i=12; $i<23; $i++)
+          {
+            ?>
+            <option value="<?=$i?>"><?=$i?></option><?php
+          }?>
+
+        </select>
+        <select name="booking_min" id="booking_min">
+          <option value="00">00</option>
+          <option value="15">15</option>
+          <option value="30">30</option>
+          <option value="45">45</option>
+        </select></td>
+      </tr>
+      <tr>
+        <td>Nombre de couverts: </td>
+        <td><input type="number" name="nb_couverts" min="1" max="35"></td>
+      </tr>
+    </table>
+    </fieldset>
+    <p style=" color:red"><?php
+        if(isset($_GET['err']))
+          {
+             ?>Veuillez sélectionner une date supérieure à celle d'aujourd'hui<?php
+          }
+        ?></p>
+
+    <input type="submit" name="reserver" value="Réserver" class="button">
+    <a href="../index.php" class="cancel">Annuler</a>
+  </form>

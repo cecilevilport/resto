@@ -1,0 +1,80 @@
+<?php
+$url='/3wa/php/resto-bases'; ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>3WA Restaurant</title>
+
+    <link rel="stylesheet" href="<?= $url ?>/www/css/normalize-3.0.3.min.css">
+    <link rel="stylesheet" href="<?= $url ?>/www/css/font-awesome-4.3.0.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps|Karla">
+
+    <!-- Feuilles de styles de l'application -->
+    <link rel="stylesheet" href="<?= $url ?>/www/css/3wa-resto.css">
+    <link rel="stylesheet" href="<?= $url ?>/www/css/ui-button.css">
+    <link rel="stylesheet" href="<?= $url ?>/www/css/ui-form.css">
+    <link rel="stylesheet" href="<?= $url ?>/www/css/ui-table.css">
+
+    <!-- Librairie jQuery -->
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <!-- JavaScript de l'application -->
+    <script src="<?= $url ?>/www/js/utilities.js"></script>
+    <script src="<?= $url ?>/www/js/classes/FormValidator.class.js"></script>
+</head>
+<body>
+
+    <!-- En-tête commune -->
+    <header>
+        <h1>
+            <a href="index.php">
+                <img src="<?= $url ?>/www/images/logo.gif" height="63" width="57" alt="3WA Restaurant">Restaurant - Made In America !
+            </a>
+        </h1>
+    </header>
+
+    <!-- Interface utilisateur -->
+    <nav class="user-interface">
+        <ul class="link-list">
+            <?php if(is_connect()==true): ?>
+                <li>
+                    <a class="button button-primary" href="<?= $url ?>/index.php?action=reserver">Réserver</a>
+                    <a class="button button-primary" href="">Commander</a>
+                </li>
+                <li class="layout-right">
+                    <p class="welcome">Bonjour <strong><?= $_SESSION['user']['Prenom'] ?> <?= $_SESSION['user']['Nom'] ?></strong> !</p>
+                    <a class="button button-primary" href="<?= $url ?>/index.php?action=deconnexion">Déconnexion</a>
+                </li>
+            <?php else: ?>
+                <li>
+                    <a class="button button-primary" href="<?= $url ?>/newUser">Créer un compte</a>
+                </li>
+                <li class="layout-right">
+                    <a class="button button-primary" href="<?= $url ?>/index.php?action=connexion">Connexion</a>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Affichage du template lié à la vue -->
+        <?php include $template; ?>
+    </main>
+
+    <!-- Pied de page commun -->
+    <footer>
+        <ul class="link-list">
+            <li><img src="<?= $url ?>/www/images/payment/visa.png" alt="Visa"></li>
+            <li><img src="<?= $url ?>/www/images/payment/mastercard.png" alt="MasterCard"></li>
+            <li><img src="<?= $url ?>/www/images/payment/paypal.png" alt="PayPal"></li>
+        </ul>
+        <small>Réalisé avec <i class="fa fa-heart"></i>&nbsp; par les élèves de la 3W Academy</small>
+    </footer>
+
+    <!-- Code principal JavaScript de l'application -->
+    <script src="<?= $url ?>/www/js/main.js"></script>
+</body>
+</html>

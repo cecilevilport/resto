@@ -1,0 +1,17 @@
+#--------------------------------------------------
+# Répertoire : accueil
+#--------------------------------------------------
+
+# Le serveur doit suivre les liens symboliques :
+Options +FollowSymlinks
+
+# Activation du module de réécriture d'URL :
+RewriteEngine on
+
+#--------------------------------------------------
+# Règles de réécriture d'URL :
+#--------------------------------------------------
+
+RewriteRule ^(-[a-zA-Z]*)$   index.php?action=$1 [L]
+RewriteRule ^newUser$   index.php?action=newUser [L]
+RewriteRule ^$   index.php [L]
